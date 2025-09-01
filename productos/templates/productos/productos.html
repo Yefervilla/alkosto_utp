@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos - Alkosto</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+        h1 { color: #d00000; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0px 2px 6px rgba(0,0,0,0.2); }
+        .card h2 { font-size: 18px; margin: 0 0 10px; }
+        .precio { color: green; font-weight: bold; }
+        .stock { color: #555; }
+    </style>
+</head>
+<body>
+    <h1>Catálogo de Productos Alkosto</h1>
+    <form method="get" style="text-align:center; margin-bottom:20px;">
+        <label for="categoria">Filtrar por categoría:</label>
+        <select name="categoria" id="categoria" onchange="this.form.submit()">
+            <option value="">Todas</option>
+            {% for cat in categorias %}
+                <option value="{{ cat.id }}" {% if cat.id|stringformat:'s' == categoria_id %}selected{% endif %}>{{ cat.nombre }}</option>
+            {% endfor %}
+        </select>
+    </form>
+    <div class="grid">
+        {% for producto in productos %}
+            <div class="card">
+                <h2>{{ producto.nombre }}</h2>
+                <p class="precio">${{ producto.precio|floatformat:0 }}</p>
+                <p class="stock">Stock disponible: {{ producto.stock }}</p>
+                <p><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
+            </div>
+        {% endfor %}
+
+<h1>Productos</h1>
+<ul>
+{% for producto in productos %}
+    <li>
+        {{ producto.nombre }} - {{ producto.precio }} COP
+        <a href="{% url 'agregar_producto' producto.id %}">Agregar al carrito</a>
+    </li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'carrito_lista' %}">Ver carrito</a>
+    </div>
+</body>
+</html>

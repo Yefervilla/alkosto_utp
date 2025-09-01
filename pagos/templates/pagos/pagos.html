@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pagos</title>
+    <style>
+        table { border-collapse: collapse; width: 80%; margin: auto; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">Pagos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Referencia</th>
+                <th>Método</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pago in pagos %}
+            <tr>
+                <td>{{ pago.referencia }}</td>
+                <td>{{ pago.get_metodo_display }}</td>
+                <td>{{ pago.monto }}</td>
+                <td>{{ pago.estado }}</td>
+                <td>{{ pago.fecha }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

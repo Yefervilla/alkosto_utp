@@ -1,0 +1,36 @@
+{% load carrito_extras %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carrito</title>
+</head>
+<body>
+    <h1>Tu Carrito</h1>
+
+    {% if carrito and carrito.lineas.all %}
+        <ul>
+            {% for linea in carrito.lineas.all %}
+                <li>
+                    {{ linea.producto.nombre }} x {{ linea.cantidad }} = 
+                    {{ linea.cantidad|multiply:linea.producto.precio }} COP
+                    <a href="{% url 'eliminar_linea' linea.id %}">Eliminar</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <p>Total: {{ carrito.total }} COP</p>
+
+        <form method="POST" action="{% url 'aplicar_cupon' %}">
+            {% csrf_token %}
+            <input type="text" name="codigo" placeholder="Código de cupón">
+            <button type="submit">Aplicar cupón</button>
+        </form>
+
+    {% else %}
+        <p>Tu carrito está vacío</p>
+    {% endif %}
+
+    <a href="{% url 'productos_lista' %}">Seguir comprando</a>
+</body>
+</html>

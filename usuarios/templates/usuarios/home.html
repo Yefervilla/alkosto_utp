@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alkosto - Inicio</title>
+</head>
+<body>
+    <h1>Bienvenido a Alkosto</h1>
+
+    {% if user.is_authenticated %}
+        <p>Hola, {{ user.username }}</p>
+        <a href="{% url 'logout' %}">Cerrar sesión</a>
+    {% else %}
+        <a href="{% url 'login' %}">Iniciar sesión</a> |
+        <a href="{% url 'register' %}">Crear cuenta</a>
+    {% endif %}
+
+</body>
+</html>
