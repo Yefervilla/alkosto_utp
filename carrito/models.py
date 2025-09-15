@@ -4,7 +4,7 @@ from productos.models import Producto
 
 class Cupon(models.Model):
     codigo = models.CharField(max_length=20, unique=True)
-    descuento = models.DecimalField(max_digits=5, decimal_places=2)  # porcentaje
+    descuento = models.DecimalField(max_digits=2, decimal_places=2)  # porcentaje
     activo = models.BooleanField(default=True)
 
     def __str__(self):
@@ -26,6 +26,7 @@ class Carrito(models.Model):
         if self.user:
             return f"Carrito de {self.user.username}"
         return f"Carrito anónimo #{self.id}"
+    
 
 class LineaCarrito(models.Model):
     carrito = models.ForeignKey(Carrito, related_name="lineas", on_delete=models.CASCADE)
@@ -37,3 +38,4 @@ class LineaCarrito(models.Model):
 
     def __str__(self):
         return f"{self.cantidad} x {self.producto.nombre}"
+    

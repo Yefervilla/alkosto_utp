@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Pago, Webhook
+from pagos.models import Pago, Webhook
 
 @admin.register(Pago)
 class PagoAdmin(admin.ModelAdmin):
-    list_display = ('referencia', 'metodo', 'monto', 'estado', 'fecha')
+    list_display = ('carrito_id', 'metodo', 'monto', 'estado', 'fecha')
     list_filter = ('metodo', 'estado')
+    exclude = ('monto',)
 
 @admin.register(Webhook)
 class WebhookAdmin(admin.ModelAdmin):
